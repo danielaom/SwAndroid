@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SweetStop.iml" filepath="$PROJECT_DIR$/SweetStop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwAndroid.iml" filepath="$PROJECT_DIR$/SwAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
