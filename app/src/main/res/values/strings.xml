@@ -15,4 +15,11 @@
         completions."
     </string>
     <string name="title_activity_registro">Registro</string>
+
+    <string name="h_title_category">Nombre Categoria</string>
+    <string name="h_title_catalogo">Nombre Catalogo</string>
+
+    <string name="h_descripcion_catalogo">Detalle Catalogo</string>
+
+    <string name="h_precio_catalogo">0.00</string>
 </resources>

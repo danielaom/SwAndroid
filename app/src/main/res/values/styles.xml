@@ -17,4 +17,29 @@
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="TitleCategory">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:hint">@string/h_title_category</item>
+        <item name="android:textSize">@dimen/st_title_category</item>
+    </style>
+
+    <style name="TitleCatalogo">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:hint">@string/h_title_category</item>
+        <item name="android:textSize">@dimen/st_title_catalogo</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DescripcionCatalogo">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:hint">@string/h_title_category</item>
+        <item name="android:textSize">@dimen/sd_descripcion_catalago</item>
+    </style>
+
+    <style name="PrecioCatalogo">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:hint">@string/h_title_category</item>
+        <item name="android:textSize">@dimen/sp_precio_catalago</item>
+    </style>
+
 </resources>

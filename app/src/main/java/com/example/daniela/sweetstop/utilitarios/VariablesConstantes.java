@@ -12,4 +12,6 @@ public class VariablesConstantes {
     // WEB SERVICES REST
     public static final String _URL_AUTENTIFICACION = "http://192.168.1.34:80/sw/servicios/autentificacion.php";
     public static final String _URL_REGISTRO = "http://192.168.1.34:80/sw/servicios/registro.php";
+    public static final String _URL_CATEGORIA = "http://192.168.1.34:80/sw/servicios/categorias.php";
+    public static final String _URL_CATALOGO = "http://192.168.1.34:80/sw/servicios/productos.php";
 }

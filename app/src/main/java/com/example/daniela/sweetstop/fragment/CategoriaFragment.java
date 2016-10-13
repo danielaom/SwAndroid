@@ -6,20 +6,28 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.daniela.sweetstop.R;
-
-/**
- * Created by gonzalopro on 10/12/16.
- */
+import com.example.daniela.sweetstop.service.ObtenerCategorias;
 
 public class CategoriaFragment extends Fragment {
+
+    ListView listViewCategories;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_categoria,container,false);
+        listViewCategories = (ListView) root.findViewById(R.id.lv_categories);
+
 
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        new ObtenerCategorias(getContext(),listViewCategories).execute();
     }
 }

@@ -3,4 +3,14 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Size Titles -->
+    <dimen name="st_title_category">17sp</dimen>
+    <dimen name="st_title_catalogo">14sp</dimen>
+
+    <!-- Size Descripcion -->
+    <dimen name="sd_descripcion_catalago">10sp</dimen>
+
+    <!-- Size Precio -->
+    <dimen name="sp_precio_catalago">17sp</dimen>
 </resources>
