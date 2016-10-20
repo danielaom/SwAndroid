@@ -6,11 +6,17 @@
 
     <!-- Size Titles -->
     <dimen name="st_title_category">17sp</dimen>
-    <dimen name="st_title_catalogo">14sp</dimen>
+    <dimen name="st_title_catalogo">18sp</dimen>
+    <dimen name="st_precio_catalago">34sp</dimen>
 
     <!-- Size Descripcion -->
-    <dimen name="sd_descripcion_catalago">10sp</dimen>
+    <dimen name="sd_descripcion_catalago">14sp</dimen>
 
     <!-- Size Precio -->
-    <dimen name="sp_precio_catalago">17sp</dimen>
+    <dimen name="sp_precio_catalago">18sp</dimen>
+
+
+    <!-- Size Producto Button -->
+    <dimen name="spb_producto_plus">17sp</dimen>
+
 </resources>

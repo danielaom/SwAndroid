@@ -40,6 +40,25 @@
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:hint">@string/h_title_category</item>
         <item name="android:textSize">@dimen/sp_precio_catalago</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TitleProduct">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:hint">@string/h_title_category</item>
+        <item name="android:textSize">@dimen/st_precio_catalago</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AdicionarPedido">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/sp_precio_catalago</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Button Producto -->
+    <style name="PressButtonProducto">
+        <item name="android:textSize">@dimen/spb_producto_plus</item>
     </style>
 
 </resources>
