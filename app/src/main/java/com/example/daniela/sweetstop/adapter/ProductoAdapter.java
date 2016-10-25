@@ -1,6 +1,7 @@
 package com.example.daniela.sweetstop.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import java.util.List;
 
 public class ProductoAdapter extends ArrayAdapter<Catalogo> {
 
+    public static final String TAG = ProductoAdapter.class.getSimpleName();
+
     public ProductoAdapter(Context paramContext, List<Catalogo> productos) {
         super(paramContext, 0, productos);
     }
@@ -35,7 +38,7 @@ public class ProductoAdapter extends ArrayAdapter<Catalogo> {
 
         TextView textViewTitle = (TextView) convertView.findViewById(R.id.tv_card_producto_nombre);
         TextView textViewDescription = (TextView) convertView.findViewById(R.id.tv_card_producto_detalle);
-        TextView textViewPrecio = (TextView) convertView.findViewById(R.id.tv_card_producto_precio);
+        final TextView textViewPrecio = (TextView) convertView.findViewById(R.id.tv_card_producto_precio);
         Button buttonAdd = (Button) convertView.findViewById(R.id.btn_card_producto_add);
         Button buttonQuit = (Button) convertView.findViewById(R.id.btn_card_producto_quit);
         Button buttonRemove = (Button) convertView.findViewById(R.id.btn_card_producto_remove);
@@ -47,7 +50,28 @@ public class ProductoAdapter extends ArrayAdapter<Catalogo> {
         textViewTitle.setText(catalogo.getNombre());
         textViewDescription.setText(catalogo.getDescripcion());
 
+        buttonQuit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s = textViewPrecio.getText().toString();
+                if (s.equals("1")) {
+                    Log.d(TAG, "Cantidad " + s);
+                } else {
+                    int c = Integer.parseInt(textViewPrecio.getText().toString()) - 1;
+                    textViewPrecio.setText(String.valueOf(c));
+                }
 
+            }
+        });
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //String s = textViewPrecio.getText().toString();
+                int c = Integer.parseInt(textViewPrecio.getText().toString()) + 1;
+                textViewPrecio.setText(String.valueOf(c));
+            }
+        });
 
         return convertView;
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daniela.sweetstop.R;
@@ -48,9 +49,30 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.CellPedido
         holder.textViewAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addItemOrder(catalogo);
+                if (existItem(catalogo)) {
+                    Toast.makeText(context,"El producto ya fue seleccionado!",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context,"Nuevo producto añadido",Toast.LENGTH_SHORT).show();
+                }
+                //addItemOrder(catalogo);
             }
         });
+    }
+
+    private boolean existItem (Catalogo catalogo) {
+
+        if (addItemOrderList.size() == 0) {
+            addItemOrder(catalogo);
+        } else {
+
+            for (int i = 0; i <= addItemOrderList.size(); i++) {
+                Catalogo aux = addItemOrderList.get(i);
+                if (aux.getIdProducto().equals(catalogo.getIdProducto())) return true;
+            }
+
+        }
+
+        return false;
     }
 
     private void addItemOrder(Catalogo catalogo) {
