@@ -49,30 +49,15 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.CellPedido
         holder.textViewAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (existItem(catalogo)) {
+                if (addItemOrderList.contains(catalogo)) {
                     Toast.makeText(context,"El producto ya fue seleccionado!",Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context,"Nuevo producto añadido",Toast.LENGTH_SHORT).show();
+                    addItemOrder(catalogo);
                 }
                 //addItemOrder(catalogo);
             }
         });
-    }
-
-    private boolean existItem (Catalogo catalogo) {
-
-        if (addItemOrderList.size() == 0) {
-            addItemOrder(catalogo);
-        } else {
-
-            for (int i = 0; i <= addItemOrderList.size(); i++) {
-                Catalogo aux = addItemOrderList.get(i);
-                if (aux.getIdProducto().equals(catalogo.getIdProducto())) return true;
-            }
-
-        }
-
-        return false;
     }
 
     private void addItemOrder(Catalogo catalogo) {
