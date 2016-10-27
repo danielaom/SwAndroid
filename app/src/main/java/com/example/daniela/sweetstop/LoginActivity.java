@@ -423,12 +423,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     switch (response) {
                         case 0:
-                                // NO tiene acceso
-                                Toast.makeText(context, "Usuario sin Acceso", Toast.LENGTH_SHORT).show();
+                            // NO tiene acceso
+                            Toast.makeText(context, "Usuario sin Acceso", Toast.LENGTH_SHORT).show();
                             break;
-                        case 1:
-                                // Iniciar nueva actividad
-                                context.startActivity(new Intent(context, MainActivity.class));
+                        default:
+                            // Iniciar nueva actividad
+                            Log.d("Response", "ID: " + response);
+                            ((SwAndroid) context.getApplicationContext()).setId_cliente(response);
+                            context.startActivity(new Intent(context, MainActivity.class));
                             break;
 
                     }

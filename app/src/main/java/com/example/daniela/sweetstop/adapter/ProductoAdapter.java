@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.daniela.sweetstop.R;
 import com.example.daniela.sweetstop.model.Catalogo;
 import com.example.daniela.sweetstop.model.Categoria;
+import com.example.daniela.sweetstop.model.Pedido;
 
 import java.util.List;
 
@@ -19,12 +20,12 @@ import java.util.List;
  * Created by gonzalopro on 10/16/16.
  */
 
-public class ProductoAdapter extends ArrayAdapter<Catalogo> {
+public class ProductoAdapter extends ArrayAdapter<Pedido> {
 
     public static final String TAG = ProductoAdapter.class.getSimpleName();
 
-    public ProductoAdapter(Context paramContext, List<Catalogo> productos) {
-        super(paramContext, 0, productos);
+    public ProductoAdapter(Context paramContext, List<Pedido> pedido) {
+        super(paramContext, 0, pedido);
     }
 
     @Override
@@ -44,11 +45,12 @@ public class ProductoAdapter extends ArrayAdapter<Catalogo> {
         Button buttonRemove = (Button) convertView.findViewById(R.id.btn_card_producto_remove);
 
 
-        final Catalogo catalogo = getItem(position);
+        final Pedido pedido = getItem(position);
 
-        assert catalogo != null;
-        textViewTitle.setText(catalogo.getNombre());
-        textViewDescription.setText(catalogo.getDescripcion());
+        assert pedido != null;
+        textViewPrecio.setText(pedido.getCantidad());
+        textViewTitle.setText(pedido.getCatalogo().getNombre());
+        textViewDescription.setText(pedido.getCatalogo().getDescripcion());
 
         buttonQuit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,7 @@ public class ProductoAdapter extends ArrayAdapter<Catalogo> {
                     Log.d(TAG, "Cantidad " + s);
                 } else {
                     int c = Integer.parseInt(textViewPrecio.getText().toString()) - 1;
+                    pedido.setCantidad(String.valueOf(c));
                     textViewPrecio.setText(String.valueOf(c));
                 }
 
@@ -69,6 +72,7 @@ public class ProductoAdapter extends ArrayAdapter<Catalogo> {
             public void onClick(View v) {
                 //String s = textViewPrecio.getText().toString();
                 int c = Integer.parseInt(textViewPrecio.getText().toString()) + 1;
+                pedido.setCantidad(String.valueOf(c));
                 textViewPrecio.setText(String.valueOf(c));
             }
         });

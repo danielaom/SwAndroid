@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daniela.sweetstop.R;
+import com.example.daniela.sweetstop.SwAndroid;
 import com.example.daniela.sweetstop.model.Catalogo;
+import com.example.daniela.sweetstop.model.Pedido;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,12 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.CellPedido
 
     private Context context;
     private List<Catalogo> catalogos;
+    private List<Pedido> pedidos;
+
+
     private List<Catalogo> addItemOrderList = new ArrayList<>();
     ListView listViewOrder;
+
 
     public PedidoAdapter(Context context, List<Catalogo> catalogos, ListView listView) {
         this.context = context;
@@ -37,15 +43,18 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.CellPedido
     @Override
     public PedidoAdapter.CellPedido onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.cell_pedido, parent, false);
-
+        pedidos = ((SwAndroid) context.getApplicationContext()).getPedidos();
         return new CellPedido(root);
     }
 
     @Override
     public void onBindViewHolder(PedidoAdapter.CellPedido holder, int position) {
+
         final Catalogo catalogo = catalogos.get(position);
         holder.textViewPrecio.setText(catalogo.getPrecio());
         Glide.with(context).load(catalogo.getImagen()).into(holder.imageViewLogo);
+
+
         holder.textViewAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,16 +62,19 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.CellPedido
                     Toast.makeText(context,"El producto ya fue seleccionado!",Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context,"Nuevo producto añadido",Toast.LENGTH_SHORT).show();
-                    addItemOrder(catalogo);
+                    addItemOrderList.add(catalogo);
+                    addItemOrder(new Pedido(catalogo.getIdProducto(),"1",catalogo));
                 }
                 //addItemOrder(catalogo);
             }
         });
     }
 
-    private void addItemOrder(Catalogo catalogo) {
-        addItemOrderList.add(catalogo);
-        listViewOrder.setAdapter(new ProductoAdapter(context, addItemOrderList));
+    private void addItemOrder(Pedido pedido) {
+        pedidos.add(pedido);
+        ((SwAndroid) context.getApplicationContext()).setPedidos(pedidos);
+
+        listViewOrder.setAdapter(new ProductoAdapter(context, pedidos));
     }
 
     @Override

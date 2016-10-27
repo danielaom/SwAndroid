@@ -44,7 +44,7 @@
                 android:textSize="34sp"
                 android:gravity="center"
                 android:id="@+id/tv_card_producto_precio"
-                android:text="1"
+                android:hint="1"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
