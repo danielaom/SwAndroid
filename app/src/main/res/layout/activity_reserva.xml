@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.daniela.sweetstop.ReservaActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Mesa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_reserva_id_mesa"
+                android:textSize="44sp"
+                android:hint="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="Crear nueva reserva"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:padding="8dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:text="Entrada:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_reserva_fecha_inicio"
+                    android:layout_weight="1"
+                    android:text="F"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btn_reserva_hora_inicio"
+                    android:layout_weight="1"
+                    android:text="H"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="16dp"
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:text="Fecha:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_reserva_fecha_inicio"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                android:hint="0000-00-00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="16dp"
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:text="Hora:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_reserva_hora_inicio"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                android:hint="00:00:00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:padding="8dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:text="Salida:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_reserva_fecha_final"
+                    android:layout_weight="1"
+                    android:text="F"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btn_reserva_hora_final"
+                    android:layout_weight="1"
+                    android:text="H"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="16dp"
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:text="Fecha:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_reserva_fecha_final"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                android:hint="0000-00-00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="16dp"
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:text="Hora:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_reserva_hora_final"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                android:hint="00:00:00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_reserva_guardar"
+            android:text="Reservar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

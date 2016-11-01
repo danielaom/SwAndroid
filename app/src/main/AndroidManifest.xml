@@ -15,11 +15,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
@@ -30,20 +28,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Registro"
             android:label="@string/title_activity_registro"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".CatalogoActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PedidoActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EstadoMesaActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ReservaActivity"></activity>
     </application>
 
 </manifest>

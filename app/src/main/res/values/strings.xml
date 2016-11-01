@@ -22,4 +22,6 @@
     <string name="h_descripcion_catalogo">Detalle Catalogo</string>
 
     <string name="h_precio_catalogo">0.00</string>
+
+    <string name="mesa">0</string>
 </resources>
