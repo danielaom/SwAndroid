@@ -21,4 +21,5 @@ public class VariablesConstantes {
     public static final String _URL_PRODUCTO = "http://" + IP + ":" + PORT +"/wsadmin/servicios/productosall.php";
     public static final String _URL_PEDIDO = "http://" + IP + ":" + PORT +"/wsadmin/servicios/pedido.php";
     public static final String _URL_ESTADO_MESA = "http://" + IP + ":" + PORT +"/wsadmin/servicios/estadoMesa.php";
+    public static final String _URL_RESERVA = "http://" + IP + ":" + PORT +"/wsadmin/servicios/reserva.php";
 }

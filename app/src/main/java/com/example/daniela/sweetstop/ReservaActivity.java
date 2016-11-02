@@ -1,28 +1,30 @@
 package com.example.daniela.sweetstop;
 
+import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import com.example.daniela.sweetstop.service.EnviarReserva;
 
-import java.util.Calendar;
+/**
+ * Created by gonzalopro on 10/30/16.
+ */
 
-public class ReservaActivity extends AppCompatActivity  implements
-        TimePickerDialog.OnTimeSetListener,
-        DatePickerDialog.OnDateSetListener {
+public class ReservaActivity extends AppCompatActivity {
 
     Button buttonFI, buttonFF, buttonHI, buttonHF, buttonEnviar;
     TextView textViewFI, textViewFF, textViewHI, textViewHF, textViewidMesa;
 
-    String idMesa;
+    String idMesa,fechaInicial,fechaFinal,horaInicial,horaFinal;
     int idUsuario;
 
     @Override
@@ -45,6 +47,12 @@ public class ReservaActivity extends AppCompatActivity  implements
         idMesa = getIntent().getStringExtra("idMesa");
         idUsuario = ((SwAndroid) getApplicationContext()).getId_cliente();
         textViewidMesa.setText(idMesa);
+
+        fechaInicial = "";
+        fechaFinal = "";
+        horaInicial = "";
+        horaFinal = "";
+
     }
 
     @Override
@@ -55,91 +63,161 @@ public class ReservaActivity extends AppCompatActivity  implements
         buttonHI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        ReservaActivity.this,
-                        now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                );
-                tpd.enableMinutes(true);
-                tpd.setTitle("TimePicker Title");
-                tpd.setAccentColor(Color.parseColor("#9C27B0"));
-                tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        Log.d("TimePicker", "Dialog was cancelled");
-                    }
-                });
-                tpd.show(getFragmentManager(), "Timepickerdialog");
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.dialog_timer_picker, null, false);
+
+                final TimePicker timePicker = (TimePicker) view.findViewById(R.id.timePicker);
+                timePicker.setIs24HourView(true);
+
+                new AlertDialog.Builder(ReservaActivity.this).setView(view)
+                        .setTitle("Hora Inicial")
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int id) {
+                                String hourString = timePicker.getCurrentHour() < 10 ? "0"+timePicker.getCurrentHour() : ""+timePicker.getCurrentHour();
+                                String minuteString = timePicker.getCurrentMinute() < 10 ? "0"+timePicker.getCurrentMinute() : ""+timePicker.getCurrentMinute();
+                                String time = hourString + ":" + minuteString + ":" + "00";
+                                horaInicial = hourString + ":" + minuteString + ":" + "00";
+                                textViewHI.setText(time);
+
+                                dialog.cancel();
+
+                            }
+
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        }).show();
             }
         });
 
         buttonHF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        ReservaActivity.this,
-                        now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                );
-                tpd.enableMinutes(true);
-                tpd.setTitle("TimePicker Title");
-                tpd.setAccentColor(Color.parseColor("#9C27B0"));
-                tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        Log.d("TimePicker", "Dialog was cancelled");
-                    }
-                });
-                tpd.show(getFragmentManager(), "Timepickerdialog");
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.dialog_timer_picker, null, false);
+
+                final TimePicker timePicker = (TimePicker) view.findViewById(R.id.timePicker);
+                timePicker.setIs24HourView(true);
+
+                new AlertDialog.Builder(ReservaActivity.this).setView(view)
+                        .setTitle("Hora Final")
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int id) {
+                                String hourString = timePicker.getCurrentHour() < 10 ? "0"+timePicker.getCurrentHour() : ""+timePicker.getCurrentHour();
+                                String minuteString = timePicker.getCurrentMinute() < 10 ? "0"+timePicker.getCurrentMinute() : ""+timePicker.getCurrentMinute();
+                                String time = hourString + ":" + minuteString + ":" + "00";
+                                horaFinal = hourString + ":" + minuteString + ":" + "00";
+                                textViewHF.setText(time);
+
+                                dialog.cancel();
+
+                            }
+
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        }).show();
+
             }
         });
 
-        // Show a datepicker when the dateButton is clicked
+
         buttonFI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog dpd = DatePickerDialog.newInstance(
-                        ReservaActivity.this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
-                );
-                dpd.setTitle("DatePicker Title");
-                dpd.setAccentColor(Color.parseColor("#9C27B0"));
-                dpd.show(getFragmentManager(), "Datepickerdialog");
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.dialog_date_picker, null, false);
+
+                final DatePicker datePicker = (DatePicker) view.findViewById(R.id.datePicker);
+
+                datePicker.setCalendarViewShown(false);
+
+
+                new AlertDialog.Builder(ReservaActivity.this).setView(view)
+                        .setTitle("Fecha Inicial")
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+
+                                int month = datePicker.getMonth() + 1;
+                                int day = datePicker.getDayOfMonth();
+                                int year = datePicker.getYear();
+
+                                String date = day + "-" + month + "-" + year;
+                                fechaInicial = year + "-" + month + "-" + day;
+                                textViewFI.setText(date);
+                                dialog.cancel();
+
+                            }
+
+                        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).show();
             }
         });
 
-    }
+        buttonFF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.dialog_date_picker, null, false);
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        TimePickerDialog tpd = (TimePickerDialog) getFragmentManager().findFragmentByTag("Timepickerdialog");
-        DatePickerDialog dpd = (DatePickerDialog) getFragmentManager().findFragmentByTag("Datepickerdialog");
+                final DatePicker datePicker = (DatePicker) view.findViewById(R.id.datePicker);
 
-        if(tpd != null) tpd.setOnTimeSetListener(this);
-        if(dpd != null) dpd.setOnDateSetListener(this);
-    }
+                datePicker.setCalendarViewShown(false);
 
 
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = dayOfMonth+"-"+(++monthOfYear)+"-"+year;
-        textViewFI.setText(date);
-    }
+                new AlertDialog.Builder(ReservaActivity.this).setView(view)
+                        .setTitle("Fecha Final")
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
 
-    @Override
-    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
-        String hourString = hourOfDay < 10 ? "0"+hourOfDay : ""+hourOfDay;
-        String minuteString = minute < 10 ? "0"+minute : ""+minute;
-        String secondString = second < 10 ? "0"+second : ""+second;
-        String time = hourString+":"+minuteString+":"+secondString;
-        textViewHI.setText(time);
+
+                                int month = datePicker.getMonth() + 1;
+                                int day = datePicker.getDayOfMonth();
+                                int year = datePicker.getYear();
+
+                                String date = day + "-" + month + "-" + year;
+                                fechaFinal = year + "-" + month + "-" + day;
+                                textViewFF.setText(date);
+                                dialog.cancel();
+
+                            }
+
+                        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).show();
+            }
+        });
+
+        buttonEnviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!fechaInicial.equals("") && !fechaFinal.equals("") && !horaInicial.equals("") && !horaFinal.equals("")) {
+
+                    String inicio = fechaInicial + " " + horaInicial;
+                    String fin = fechaFinal + " " + horaFinal;
+
+                    new EnviarReserva(ReservaActivity.this,idUsuario,idMesa,inicio,fin).execute();
+                } else {
+                    Toast.makeText(ReservaActivity.this, "Existen Campos vacios",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }

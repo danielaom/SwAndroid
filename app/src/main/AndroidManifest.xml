@@ -41,7 +41,10 @@
         <activity
             android:name=".EstadoMesaActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ReservaActivity"></activity>
+        <activity
+            android:name=".ReservaActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

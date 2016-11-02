@@ -61,4 +61,9 @@
         <item name="android:textSize">@dimen/spb_producto_plus</item>
     </style>
 
+    <!-- Dialog Date -->
+    <style name="DialogDate">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

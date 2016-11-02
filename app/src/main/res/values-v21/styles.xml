@@ -1,1 +1,5 @@
-<resources></resources>
+<resources>
+    <style name="DialogDate">
+        <item name="android:colorAccent">@color/colorPrimary</item>
+    </style>
+</resources>

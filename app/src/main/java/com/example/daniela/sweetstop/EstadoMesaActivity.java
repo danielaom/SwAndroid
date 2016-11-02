@@ -141,7 +141,7 @@ public class EstadoMesaActivity extends AppCompatActivity implements MonthLoader
                 endTime.setTime(date2);
                 //endTime.set(Calendar.MONTH, newMonth-1);
 
-                WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime), startTime, endTime);
+                WeekViewEvent event = new WeekViewEvent(i, getEventTitle(startTime), startTime, endTime);
                 event.setColor(getResources().getColor(R.color.colorPrimary));
                 events.add(event);
             }

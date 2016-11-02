@@ -102,7 +102,7 @@
             <TextView
                 android:layout_marginTop="16dp"
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:text="Fecha:"
+                android:text="Fecha Inicial:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -119,7 +119,7 @@
             <TextView
                 android:layout_marginTop="16dp"
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:text="Hora:"
+                android:text="Hora Inicial:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -180,7 +180,7 @@
             <TextView
                 android:layout_marginTop="16dp"
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:text="Fecha:"
+                android:text="Fecha Final:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -197,7 +197,7 @@
             <TextView
                 android:layout_marginTop="16dp"
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:text="Hora:"
+                android:text="Hora Final:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
