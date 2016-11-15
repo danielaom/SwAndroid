@@ -105,7 +105,7 @@ public class ObtenerCategorias extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-
+        progressDialog.dismiss();
         categorias = new ArrayList<>();
         try {
             JSONObject group_info = new JSONObject(String.valueOf(resultCategorias));

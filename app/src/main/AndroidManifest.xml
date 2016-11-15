@@ -44,6 +44,9 @@
         <activity
             android:name=".ReservaActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".EstadoPedidoActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
