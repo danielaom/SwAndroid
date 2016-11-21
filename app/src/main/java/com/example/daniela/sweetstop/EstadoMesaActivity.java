@@ -14,6 +14,10 @@ import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.daniela.sweetstop.adapter.CatalogoAdapter;
 import com.example.daniela.sweetstop.model.Catalogo;
 import com.example.daniela.sweetstop.service.ObtenerEstadosMesas;
@@ -27,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,6 +45,7 @@ public class EstadoMesaActivity extends AppCompatActivity implements MonthLoader
     private WeekView mWeekView;
     public StringBuilder result;
     private FloatingActionButton floatingActionButton;
+    private SliderLayout mDemoSlider;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class EstadoMesaActivity extends AppCompatActivity implements MonthLoader
         setContentView(R.layout.activity_estado_mesa);
 
         mWeekView = (WeekView) findViewById(R.id.weekView);
+        mDemoSlider = (SliderLayout) findViewById(R.id.slider);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_nueva_reserva);
 
         assert mWeekView != null;
@@ -54,14 +61,62 @@ public class EstadoMesaActivity extends AppCompatActivity implements MonthLoader
         setupDateTimeInterpreter(true);
 
         idMesa = getIntent().getStringExtra("idMesa");
-
-
+        new ObtenerEstadosMesas(idMesa,EstadoMesaActivity.this).execute();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        new ObtenerEstadosMesas(idMesa,EstadoMesaActivity.this).execute();
+
+        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
+
+        switch (idMesa) {
+            case "1":
+                file_maps.put("Mesa 1",R.drawable.mesa_1);
+                break;
+            case "2":
+                file_maps.put("Mesa 2",R.drawable.mesa_2);
+                break;
+            case "3":
+                file_maps.put("Mesa 3",R.drawable.mesa_3_1);
+                file_maps.put("Mesa 3", R.drawable.mesa_3_2);
+                break;
+            case "4":
+                file_maps.put("Mesa 4",R.drawable.mesa_4_1);
+                file_maps.put("Mesa 4", R.drawable.mesa_4_2);
+                break;
+            case "5":
+                file_maps.put("Mesa 5",R.drawable.mesa_5_1);
+                file_maps.put("Mesa 5", R.drawable.mesa_5_2);
+                file_maps.put("Mesa 5", R.drawable.mesa_5_3);
+                break;
+            case "6":
+                file_maps.put("Mesa 6",R.drawable.mesa_6_1);
+                file_maps.put("Mesa 6", R.drawable.mesa_6_2);
+                break;
+            case "7":
+                file_maps.put("Mesa 7",R.drawable.mesa_7);
+                break;
+            case "8":
+                file_maps.put("Mesa 8",R.drawable.mesa_8_1);
+                file_maps.put("Mesa 8", R.drawable.mesa_8_2);
+                break;
+        }
+
+        file_maps.clear();
+        for(String name : file_maps.keySet()){
+            TextSliderView textSliderView = new TextSliderView(this);
+            // initialize a SliderLayout
+            textSliderView
+                    .description(name)
+                    .image(file_maps.get(name));
+
+            mDemoSlider.addSlider(textSliderView);
+        }
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+        mDemoSlider.setDuration(4000);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +160,12 @@ public class EstadoMesaActivity extends AppCompatActivity implements MonthLoader
     }
 
     @Override
+    protected void onStop() {
+        mDemoSlider.stopAutoCycle();
+        super.onStop();
+    }
+
+    @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
         Log.d("State - Mesa", "Data: " + result);
@@ -127,8 +188,9 @@ public class EstadoMesaActivity extends AppCompatActivity implements MonthLoader
                 String fin = jsonGroup.getString("fechaFin");
                 Date date2 = dateFormat.parse(fin);
 
-                Log.d("MesaActivity", date1.getHours() + " - " + (date1) + " - " + date1.getYear() + " - " + newYear + " - " + newMonth);
-
+                //Log.d("MesaActivity", date1.getHours() + " - " + (date1) + " - " + date1.getYear() + " - " + newYear + " - " + newMonth);
+                int rang = date2.getHours() - date1.getHours();
+                Log.d("MesaActivity", "rang: " + rang);
                 Calendar startTime = Calendar.getInstance();
                 startTime.setTime(date1);
                 /*startTime.set(Calendar.HOUR_OF_DAY, date1.getHours());
@@ -137,7 +199,7 @@ public class EstadoMesaActivity extends AppCompatActivity implements MonthLoader
                 startTime.set(Calendar.YEAR, newYear);*/
 
                 Calendar endTime = (Calendar) startTime.clone();
-                endTime.add(Calendar.HOUR, 1);
+                endTime.add(Calendar.HOUR, rang);
                 endTime.setTime(date2);
                 //endTime.set(Calendar.MONTH, newMonth-1);
 

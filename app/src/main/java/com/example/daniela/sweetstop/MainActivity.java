@@ -55,15 +55,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new PedidoFragment(), "Pedido");
-        adapter.addFragment(new CategoriaFragment(), "Categoria");
-        adapter.addFragment(new ReservaFragment(), "Reserva");
+        adapter.addFragment(new PedidoFragment(), "Pedidos");
+        adapter.addFragment(new CategoriaFragment(), "Categorias");
+        adapter.addFragment(new ReservaFragment(), "Reservas");
         viewPager.setAdapter(adapter);
     }
 
     private void setupTabIcons() {
-        tabLayout.getTabAt(0).setCustomView(iconPedidos);
+        tabLayout.getTabAt(0).setCustomView(iconSillon);
         tabLayout.getTabAt(1).setCustomView(iconMenu);
-        tabLayout.getTabAt(2).setCustomView(iconSillon);
+        tabLayout.getTabAt(2).setCustomView(iconPedidos);
     }
 }

@@ -97,6 +97,7 @@ public class PedidoActivity extends AppCompatActivity {
         buttonCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((SwAndroid) getApplicationContext()).setPedidos(new ArrayList<Pedido>());
                 onBackPressed();
             }
         });
