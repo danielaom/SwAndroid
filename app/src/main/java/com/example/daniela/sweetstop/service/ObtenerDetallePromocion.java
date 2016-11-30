@@ -1,14 +1,13 @@
 package com.example.daniela.sweetstop.service;
 
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ListView;
 
-import com.example.daniela.sweetstop.EstadoMesaActivity;
-import com.example.daniela.sweetstop.adapter.EstadoMesaAdapter;
-import com.example.daniela.sweetstop.model.EstadoMesa;
+import com.example.daniela.sweetstop.adapter.DetallePromocionAdapter;
+import com.example.daniela.sweetstop.model.DetallePromocion;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,40 +28,33 @@ import java.util.List;
 
 import static com.example.daniela.sweetstop.utilitarios.VariablesConstantes.CONNECTION_TIMEOUT;
 import static com.example.daniela.sweetstop.utilitarios.VariablesConstantes.READ_TIMEOUT;
-import static com.example.daniela.sweetstop.utilitarios.VariablesConstantes._URL_ESTADO_MESA;
+import static com.example.daniela.sweetstop.utilitarios.VariablesConstantes._URL_PROMOCION_DETALLE;
 
 /**
- * Created by gonzalopro on 10/30/16.
+ * Created by gonzalopro on 11/30/16.
  */
 
-public class ObtenerEstadosMesas extends AsyncTask<Void,Void,Void>  {
+public class ObtenerDetallePromocion extends AsyncTask<Void,Void,Void> {
 
-    private String idMesa;
-    private ProgressDialog progressDialog;
+    private ListView listView;
+    private Context context;
+    private List<DetallePromocion> detallePromocions;
     private URL url;
     private HttpURLConnection httpURLConnection;
-    private StringBuilder resultEstadoMesa;
-    private EstadoMesaActivity estadoMesaActivity;
-    private List<EstadoMesa> estadoMesas;
-    private RecyclerView recyclerView;
+    private StringBuilder resultDetallePromocion;
+    private String idPromocion;
 
-    public ObtenerEstadosMesas(String idMesa, EstadoMesaActivity estadoMesaActivity, RecyclerView recyclerView) {
-        this.idMesa = idMesa;
-        this.estadoMesaActivity = estadoMesaActivity;
-        this.recyclerView = recyclerView;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        progressDialog = ProgressDialog.show(estadoMesaActivity, "Un momento por favor", "Obteniendo Reservas...",true);
+    public ObtenerDetallePromocion(Context context, ListView listView, String idPromocion) {
+        this.context = context;
+        this.listView = listView;
+        this.idPromocion = idPromocion;
     }
 
     @Override
     protected Void doInBackground(Void... params) {
 
         try {
-            url = new URL(_URL_ESTADO_MESA);
+            url = new URL(_URL_PROMOCION_DETALLE);
         } catch (MalformedURLException e){
             e.printStackTrace();
         }
@@ -76,7 +68,7 @@ public class ObtenerEstadosMesas extends AsyncTask<Void,Void,Void>  {
             httpURLConnection.setDoOutput(true);
 
             Uri.Builder builder = new Uri.Builder()
-                    .appendQueryParameter("idMesa", idMesa);
+                    .appendQueryParameter("idPromocion", idPromocion);
 
             String request = builder.build().getEncodedQuery();
 
@@ -99,12 +91,12 @@ public class ObtenerEstadosMesas extends AsyncTask<Void,Void,Void>  {
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-                resultEstadoMesa = new StringBuilder();
+                resultDetallePromocion = new StringBuilder();
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) {
-                    resultEstadoMesa.append(line);
-                    //System.out.println("result: " +resultEstadoMesa);
+                    resultDetallePromocion.append(line);
+                    System.out.println("result: " +resultDetallePromocion);
                 }
 
 
@@ -122,21 +114,21 @@ public class ObtenerEstadosMesas extends AsyncTask<Void,Void,Void>  {
     }
 
     @Override
-    protected void onPostExecute(Void avoid) {
-        super.onPostExecute(avoid);
-        progressDialog.dismiss();
-        estadoMesas = new ArrayList<>();
-        try {
-            JSONObject group_info = new JSONObject(String.valueOf(resultEstadoMesa));
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        detallePromocions = new ArrayList<>();
 
-            JSONArray jsonArray = group_info.getJSONArray("estado_mesas_info");
+        try {
+            JSONObject group_info = new JSONObject(String.valueOf(resultDetallePromocion));
+
+            JSONArray jsonArray = group_info.getJSONArray("productos_info");
             for (int i = 0; i < jsonArray.length() ; i++) {
 
                 JSONObject jsonGroup = jsonArray.getJSONObject(i);
-                estadoMesas.add(i, new EstadoMesa(jsonGroup.getString("fechaInicio"),jsonGroup.getString("fechaFin")));
+                detallePromocions.add(i, new DetallePromocion(jsonGroup.getString("nombre"),jsonGroup.getString("descripcion"),jsonGroup.getString("imagen")));
 
-                recyclerView.setAdapter(new EstadoMesaAdapter(estadoMesas));
-                progressDialog.dismiss();
+                listView.setAdapter(new DetallePromocionAdapter(context,detallePromocions));
+
 
             }
 
@@ -144,7 +136,4 @@ public class ObtenerEstadosMesas extends AsyncTask<Void,Void,Void>  {
             e.printStackTrace();
         }
     }
-
-
-
 }

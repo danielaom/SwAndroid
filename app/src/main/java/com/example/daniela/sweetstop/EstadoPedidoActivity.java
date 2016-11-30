@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.daniela.sweetstop.model.EstadoPedido;
+import com.example.daniela.sweetstop.service.ActualizarPedido;
 import com.example.daniela.sweetstop.utilitarios.ObjectWrapperForBinder;
 
 /**
@@ -85,14 +86,14 @@ public class EstadoPedidoActivity extends AppCompatActivity {
         imageViewFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new ActualizarPedido(EstadoPedidoActivity.this,estadoPedido.getIdPedido(),"8",EstadoPedidoActivity.this).execute();
             }
         });
 
         imageViewCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new ActualizarPedido(EstadoPedidoActivity.this,estadoPedido.getIdPedido(),"10",EstadoPedidoActivity.this).execute();
             }
         });
     }

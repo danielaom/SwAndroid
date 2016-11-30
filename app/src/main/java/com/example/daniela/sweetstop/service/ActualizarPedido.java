@@ -1,15 +1,13 @@
 package com.example.daniela.sweetstop.service;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.daniela.sweetstop.adapter.CatalogoAdapter;
-import com.example.daniela.sweetstop.model.Catalogo;
+import com.example.daniela.sweetstop.EstadoPedidoActivity;
+import com.example.daniela.sweetstop.utilitarios.VariablesConstantes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,62 +23,51 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-import static com.example.daniela.sweetstop.utilitarios.VariablesConstantes.CONNECTION_TIMEOUT;
-import static com.example.daniela.sweetstop.utilitarios.VariablesConstantes.READ_TIMEOUT;
-import static com.example.daniela.sweetstop.utilitarios.VariablesConstantes._URL_CATALOGO;
+import static com.example.daniela.sweetstop.utilitarios.VariablesConstantes._URL_ACTUALIZAR_ESTADO;
 
 /**
- * Created by gonzalopro on 10/13/16.
+ * Created by gonzalopro on 11/30/16.
  */
 
-public class ObtenerCatalogo extends AsyncTask <Object,Void,Void> {
+public class ActualizarPedido extends AsyncTask <Void,Void,Void>{
 
-    public static final String TAG = ObtenerCatalogo.class.getSimpleName();
-
+    private String idPedido;
+    private String idState;
+    private EstadoPedidoActivity estadoPedidoActivity;
     private Context context;
-    private ListView listViewCatalogo;
-    private ProgressDialog progressDialog;
-    private List<Catalogo> catalogos;
+
     private URL url;
     private HttpURLConnection httpURLConnection;
-    private StringBuilder resultCatalogo;
-    private String idCategoria;
+    private StringBuilder result;
 
-    public ObtenerCatalogo(Context context, ListView listViewCatalogo) {
+    public ActualizarPedido(Context context, String idPedido, String idState, EstadoPedidoActivity estadoPedidoActivity) {
+        this.idPedido = idPedido;
+        this.idState = idState;
+        this.estadoPedidoActivity = estadoPedidoActivity;
         this.context = context;
-        this.listViewCatalogo = listViewCatalogo;
     }
 
     @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        progressDialog = ProgressDialog.show(context, "Un momento por favor", "Obteniendo el catalogo...",true);
-    }
+    protected Void doInBackground(Void... params) {
 
-    @Override
-    protected Void doInBackground(Object... params) {
-
-        idCategoria = (String) params[0];
-        Log.d(TAG,"id: " + idCategoria);
         try {
-            url = new URL(_URL_CATALOGO);
+            url = new URL(_URL_ACTUALIZAR_ESTADO);
         } catch (MalformedURLException e){
             e.printStackTrace();
         }
 
         try {
             httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setReadTimeout(READ_TIMEOUT);
-            httpURLConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+            httpURLConnection.setReadTimeout(VariablesConstantes.READ_TIMEOUT);
+            httpURLConnection.setConnectTimeout(VariablesConstantes.CONNECTION_TIMEOUT);
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
 
             Uri.Builder builder = new Uri.Builder()
-                    .appendQueryParameter("idCategoria", idCategoria);
+                    .appendQueryParameter("idPedido", idPedido)
+                    .appendQueryParameter("estadoIdEstado", idState);
 
             String request = builder.build().getEncodedQuery();
 
@@ -103,17 +90,15 @@ public class ObtenerCatalogo extends AsyncTask <Object,Void,Void> {
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-                resultCatalogo = new StringBuilder();
+                result = new StringBuilder();
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) {
-                    resultCatalogo.append(line);
-                    System.out.println("Categoria: " +resultCatalogo);
+                    result.append(line);
                 }
 
-
             } else {
-                Log.d("Async", "error async");
+
             }
 
         } catch (IOException e) {
@@ -128,19 +113,27 @@ public class ObtenerCatalogo extends AsyncTask <Object,Void,Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        progressDialog.dismiss();
-        catalogos = new ArrayList<>();
+        Log.d("ap","valor: " + result);
         try {
-            JSONObject group_info = new JSONObject(String.valueOf(resultCatalogo));
+            JSONObject group_info = new JSONObject(String.valueOf(result));
 
-            JSONArray jsonArray = group_info.getJSONArray("productos_info");
-            for (int i = 0; i < jsonArray.length() ; i++) {
+            JSONArray codigo_respuesta = group_info.getJSONArray("codigo");
 
-                JSONObject jsonGroup = jsonArray.getJSONObject(i);
-                catalogos.add(i, new Catalogo(jsonGroup.getString("idProducto"),jsonGroup.getString("nombre"),jsonGroup.getString("descripcion"),jsonGroup.getString("imagen"),jsonGroup.getString("precio")));
+            for (int i = 0; i < codigo_respuesta.length() ; i++) {
+                int response = codigo_respuesta.getInt(i);
 
-                listViewCatalogo.setAdapter(new CatalogoAdapter(context, catalogos));
-                progressDialog.dismiss();
+                switch (response) {
+                    case 0:
+                        Toast.makeText(context, "Error al actualizar el pedido", Toast.LENGTH_SHORT).show();
+
+                        break;
+                    case 1:
+                        Toast.makeText(context, "Pedido Actualizado exitosamente", Toast.LENGTH_SHORT).show();
+                        estadoPedidoActivity.onBackPressed();
+                        break;
+
+                }
+
 
             }
 

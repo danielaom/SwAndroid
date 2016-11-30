@@ -76,7 +76,7 @@
             app:tabTextColor="@color/colorAccent"
             app:tabSelectedTextColor="@color/colorAccent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="96dp"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"

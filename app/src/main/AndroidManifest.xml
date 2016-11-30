@@ -50,6 +50,13 @@
         <activity
             android:name=".EstadoPedidoActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".PromocionesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:windowSoftInputMode="stateHidden"
+            android:name=".DetallePromocionActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
