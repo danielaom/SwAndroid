@@ -27,4 +27,5 @@ public class VariablesConstantes {
     public static final String _URL_PROMOCION_DETALLE = "http://" + IP + ":" + PORT +"/Daniela/ServiciosWeb/detallepromocion.php";
     public static final String _URL_RESERVAR_PROMOCION = "http://" + IP + ":" + PORT +"/Daniela/ServiciosWeb/recibirPromocion.php";
     public static final String _URL_ACTUALIZAR_ESTADO = "http://" + IP + ":" + PORT +"/Daniela/ServiciosWeb/enviarEstado.php";
+    public static final String _URL_PUBLICIDAD = "http://" + IP + ":" + PORT +"/Daniela/ServiciosWeb/publicidad.php";
 }

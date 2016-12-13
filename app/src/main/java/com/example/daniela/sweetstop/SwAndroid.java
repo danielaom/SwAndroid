@@ -16,6 +16,7 @@ public class SwAndroid extends Application {
     int id_cliente;
     List<Pedido> pedidos = new ArrayList<>();
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -37,4 +38,10 @@ public class SwAndroid extends Application {
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
+
+    public void clearPedido() {
+        this.pedidos.clear();
+    }
+
+
 }

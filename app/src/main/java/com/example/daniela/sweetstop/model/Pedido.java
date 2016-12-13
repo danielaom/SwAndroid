@@ -7,11 +7,22 @@ package com.example.daniela.sweetstop.model;
 public class Pedido {
 
     private String idProducto;
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
+
+    private String precio;
     private String cantidad;
     private Catalogo catalogo;
 
-    public Pedido(String idProducto, String cantidad, Catalogo catalogo) {
+    public Pedido(String idProducto, String precio, String cantidad, Catalogo catalogo) {
         this.idProducto = idProducto;
+        this.precio = precio;
         this.cantidad = cantidad;
         this.catalogo = catalogo;
     }

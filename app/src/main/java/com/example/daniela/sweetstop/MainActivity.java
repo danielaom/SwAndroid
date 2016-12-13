@@ -1,5 +1,7 @@
 package com.example.daniela.sweetstop;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +53,19 @@ public class MainActivity extends AppCompatActivity {
         setupTabIcons();
         tabLayout.getTabAt(1).select();
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final Intent mainIntent = new Intent(MainActivity.this, PublicidadActivity.class);
+                startActivity(mainIntent);
+            }
+        }, 10000);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -62,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupTabIcons() {
-        tabLayout.getTabAt(0).setCustomView(iconSillon);
+        tabLayout.getTabAt(0).setCustomView(iconPedidos);
         tabLayout.getTabAt(1).setCustomView(iconMenu);
-        tabLayout.getTabAt(2).setCustomView(iconPedidos);
+        tabLayout.getTabAt(2).setCustomView(iconSillon);
     }
 }

@@ -63,7 +63,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.CellPedido
                 } else {
                     Toast.makeText(context,"Nuevo producto añadido",Toast.LENGTH_SHORT).show();
                     addItemOrderList.add(catalogo);
-                    addItemOrder(new Pedido(catalogo.getIdProducto(),"1",catalogo));
+                    addItemOrder(new Pedido(catalogo.getIdProducto(),catalogo.getPrecio(),"1",catalogo));
                 }
                 //addItemOrder(catalogo);
             }

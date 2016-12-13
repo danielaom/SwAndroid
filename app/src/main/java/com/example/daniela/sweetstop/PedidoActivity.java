@@ -65,14 +65,20 @@ public class PedidoActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (((SwAndroid) getApplicationContext()).getPedidos().size() != 0) {
+                    pedidos = ((SwAndroid) getApplicationContext()).getPedidos();
+                    Double total = 0.00;
+                    for (Pedido pedido: pedidos) {
+                        total = total + ( (Double.parseDouble(pedido.getPrecio())) * (Double.parseDouble(pedido.getCantidad())) );
+                    }
 
                     new AlertDialog.Builder(PedidoActivity.this)
                             .setTitle("Confirmar pedido")
-                            .setMessage("El total del pedido es: "+ "20Bs" +"  \n¿Esta seguro de envar el pedido?")
+                            .setMessage("El total del pedido es: "+ total + " Bs." +"  \n¿Esta seguro de envar el pedido?")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    pedidos = ((SwAndroid) getApplicationContext()).getPedidos();
+
                                     idUsuario = ((SwAndroid) getApplicationContext()).getId_cliente();
+
                                     Log.i(TAG, "Usuario ID: " + idUsuario);
                                     new EnviarPedido(PedidoActivity.this, idUsuario, pedidos).execute();
                                     listViewPedido.setAdapter(null);
@@ -97,7 +103,7 @@ public class PedidoActivity extends AppCompatActivity {
         buttonCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SwAndroid) getApplicationContext()).setPedidos(new ArrayList<Pedido>());
+                ((SwAndroid) getApplicationContext()).clearPedido();
                 onBackPressed();
             }
         });

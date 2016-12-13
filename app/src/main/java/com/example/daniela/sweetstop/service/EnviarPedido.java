@@ -153,7 +153,7 @@ public class EnviarPedido extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         progressDialog.dismiss();
-        ((SwAndroid) context.getApplicationContext()).setPedidos(new ArrayList<Pedido>());
+        ((SwAndroid) context.getApplicationContext()).clearPedido();
         
         /*try {
             JSONObject group_info = new JSONObject(String.valueOf(result));

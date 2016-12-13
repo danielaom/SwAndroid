@@ -17,10 +17,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" >
-
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
@@ -57,6 +54,11 @@
             android:windowSoftInputMode="stateHidden"
             android:name=".DetallePromocionActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".PublicidadActivity"
+            android:screenOrientation="portrait" >
+
+        </activity>
 
     </application>
 
